@@ -8,16 +8,20 @@ fluxtype = 'HLL';
 % set up simulation type
 %sim = 'IsentropicVortex'; 
 %sim = 'Cylinder';
-sim = 'ForwardStep'
+sim = 'ForwardStep';
+
 switch sim
 case {'IsentropicVortex'}
-  filename = 'vortexA04.neu';
+  %filename = 'vortexA04.neu';
+  filename = 'vortex.msh';
   InitialSolution = @IsentropicVortexIC2D;
   ExactSolution   = @IsentropicVortexIC2D;
   BCSolution      = @IsentropicVortexBC2D;
 case {'ForwardStep'} 
   filename = 'fstepA001.neu';
   filename = 'FS_949.neu';
+  filename = 'FStep.msh';
+  
   InitialSolution = @ForwardStepIC2D;
   ExactSolution   = @ForwardStepIC2D;
   BCSolution      = @ForwardStepBC2D;
@@ -31,7 +35,8 @@ otherwise
 end
 
 % Read in Mesh
-[Nv, VX, VY, K, EToV, BCType] = MeshReaderGambitBC2D(filename);
+%[Nv, VX, VY, K, EToV, BCType] = MeshReaderGambitBC2D(filename);
+[Nv, VX, VY, K, EToV, BCType] = MeshReaderGmsh2D(filename);
 
 % Initialize solver and construct grid and metric
 StartUp2D;
@@ -64,6 +69,6 @@ BuildBCMaps2D;
 Q = feval(InitialSolution, x, y, 0);
 
 % Solve Problem
-FinalTime = 4.0;
+FinalTime = 10.0;
 [Q] = EulerShock2D(Q, FinalTime, ExactSolution, BCSolution, fluxtype); 
 

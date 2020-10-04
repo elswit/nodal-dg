@@ -37,6 +37,6 @@ BuildBCMaps2D
 Q = feval(InitialSolution, x, y, 0);
 
 % Solve Problem
-FinalTime = 1;
-[Q] = Euler2D(Q, FinalTime, BCSolution); 
+FinalTime = 10;
+[solQ] = Euler2D(Q, FinalTime, BCSolution); 
 

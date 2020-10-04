@@ -1,4 +1,4 @@
-function [Q] = Euler2D(Q, FinalTime, BC)
+function [solQ] = Euler2D(Q, FinalTime, BC)
 
 % function [Q] = Euler2D(Q,FinalTime,BC);
 % Purpose  : Integrate 2D Euler equations using a 3rd order SSP-RK
@@ -14,7 +14,7 @@ dt = EulerDT2D(Q, gamma);
 time = 0; tstep=1;
 
 % storage for low storage RK time stepping
-rhsQ = 0*Q; resQ = 0*Q;
+rhsQ = 0*Q; resQ = 0*Q; solQ=Q;
 
 % filter initial solution
 for n=1:4, Q(:,:,n) = Filt*Q(:,:,n); end;
@@ -38,12 +38,19 @@ while (time<FinalTime)
     resQ = rk4a(INTRK)*resQ + dt*rhsQ;  
     
     % update fields
-    Q = Q+rk4b(INTRK)*resQ;  
+    Q = Q+rk4b(INTRK)*resQ;
+   
+    
   end;
+ 
   
   % Increment time and compute new timestep
   time = time+dt
   dt = EulerDT2D(Q, gamma);
+  
+  if rem(tstep,10)==0
+      solQ(:,:,:,end+1) = Q;
+  end
 
   tstep = tstep+1;
 end;

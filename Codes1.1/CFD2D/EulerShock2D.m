@@ -14,6 +14,7 @@ NGauss = floor((N+1)*2); gauss = GaussFaceMesh2D(NGauss);
 % compute initial timestep
 gamma = 1.4; dt = EulerDT2D(Q, gamma); tstep = 1; time = 0;
 
+
 % limit initial condition
 Q = EulerLimiter2D(Q, ExactSolutionBC, time);
 
