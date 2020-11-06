@@ -57,6 +57,7 @@ K = size(EToV,1);
 VToBCType(VToBCType==111) = In;
 VToBCType(VToBCType==222) = Out;
 VToBCType(VToBCType==333) = Wall;
+VToBCType(VToBCType==888) = Wall;
 
 BCType = zeros(K,3);
 

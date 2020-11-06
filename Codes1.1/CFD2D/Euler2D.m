@@ -13,6 +13,8 @@ gamma = 1.4;
 dt = EulerDT2D(Q, gamma);
 time = 0; tstep=1;
 
+dt = 0.002;
+
 % storage for low storage RK time stepping
 rhsQ = 0*Q; resQ = 0*Q; solQ=Q;
 
@@ -46,7 +48,7 @@ while (time<FinalTime)
   
   % Increment time and compute new timestep
   time = time+dt
-  dt = EulerDT2D(Q, gamma);
+  %dt = EulerDT2D(Q, gamma);
   
   if rem(tstep,10)==0
       solQ(:,:,:,end+1) = Q;

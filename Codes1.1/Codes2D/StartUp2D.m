@@ -41,3 +41,9 @@ BuildMaps2D;
 % Compute weak operators (could be done in preprocessing to save time)
 [Vr, Vs] = GradVandermonde2D(N, r, s);
 Drw = (V*Vr')/(V*V'); Dsw = (V*Vs')/(V*V');
+
+% turn cylinders into walls
+ids = find(BCType==Cyl); 
+BCType(ids) = Wall;
+
+BuildBCMaps2D

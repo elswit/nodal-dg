@@ -5,31 +5,37 @@ Globals2D;
 N = 1;
 
 fluxtype = 'HLL';
+
 % set up simulation type
 %sim = 'IsentropicVortex'; 
 %sim = 'Cylinder';
-sim = 'ForwardStep';
+sim = 'Cylinder';
 
 switch sim
+    
 case {'IsentropicVortex'}
   %filename = 'vortexA04.neu';
   filename = 'vortex.msh';
   InitialSolution = @IsentropicVortexIC2D;
   ExactSolution   = @IsentropicVortexIC2D;
   BCSolution      = @IsentropicVortexBC2D;
+  
 case {'ForwardStep'} 
   filename = 'fstepA001.neu';
   filename = 'FS_949.neu';
-  filename = 'FStep.msh';
+  filename = 'FStepL.msh';
   
   InitialSolution = @ForwardStepIC2D;
   ExactSolution   = @ForwardStepIC2D;
   BCSolution      = @ForwardStepBC2D;
+  
 case 'Cylinder'
-  filename        = 'cylinderA00075b.neu';
+  %filename        = 'cylinderDA001.neu';
+  filename        = 'Cylinder.msh';
   InitialSolution = @ForwardStepIC2D;
   ExactSolution   = [];
   BCSolution      = @ForwardStepBC2D;
+  
 otherwise 
   disp('Simulation case unknown');  stop;
 end
